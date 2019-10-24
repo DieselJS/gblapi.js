@@ -34,12 +34,238 @@ class GBLAPI extends EventEmitter {
     }
 
     /**
+     * Get bot stats
+     * @param {string} [id] The ID of the bot to gain stats from.
+     * @returns {Promise<{}>}
+     */
+    async getBot(id = this.id) {
+        if (!id) throw new TypeError("Missing Bot ID");
+        return phin({
+            url: `https://glennbotlist.xyz/api/bot/${id}`,
+            parse: "json"
+        }).then((b) => {
+            if (b.statusCode !== 200) switch (b.statusCode) {
+				case 400:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+                    break;
+				case 401:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Unauthorized"
+                    });
+                    break;
+				case 403:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+				    break;
+				case 404:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Not Found"
+                    });
+                    break;
+				case 500:
+				case 502:
+					throw new GBLAPIError({
+						statusCode: p.statusCode,
+						body: p.body,
+						type: "Server Error"
+					});
+					break;
+				default:
+					throw new GBLAPIError({
+						statusCode: b.statusCode,
+						body: b.body,
+						type: "Unkown"
+					});
+            }
+            return {
+                id: b.body.id || id,
+                name: b.body.name || "Unknown",
+                owner: b.body.owner,
+                owners: b.body.owners,
+                library: b.body.library,
+                monthly_upvotes: b.body.monthlyUpvotes || 0,
+                all_time_upvotes: b.body.allTimeUpvotes || 0,
+                website: b.body.website || "None",
+                github: b.body.githubUrl || "None",
+                short_desc: b.body.shortDesc,
+                support_server: b.body.supportServerInvite || "",
+                prefix: b.body.prefix,
+                verified: b.body.verified || false,
+                trusted: b.body.trusted || false,
+                vanity_url: b.body.vanityUrl  || "",
+                featured: b.body.featured || false,
+                invite: b.body.inviteUrl  || `https://discordapp.com/oauth2/authorize?client_id=${b.body.id || id}&scope=bot`,
+                server_count: b.body.serverCount  || 0,
+                shard_count: b.body.shardCount || 0,
+                tags: b.body.tags,
+                votes: b.body.votes,
+                rates: b.body.rates
+            }
+        }).catch(err => { throw err; });
+    }
+
+    /**
+     * Get user stats
+     * @param {string} [id] The ID of the user to gain stats from.
+     * @returns {Promise<{}>}
+     */
+    async getUser(id = this.id) {
+        if (!id) throw new TypeError("Missing User ID");
+        return phin({
+            url: `https://glennbotlist.xyz/api/profiles/${id}`,
+            parse: "json"
+        }).then((b) => {
+            if (b.statusCode !== 200) switch (b.statusCode) {
+				case 400:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+                    break;
+				case 401:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Unauthorized"
+                    });
+                    break;
+				case 403:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+				    break;
+				case 404:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Not Found"
+                    });
+                    break;
+				case 500:
+				case 502:
+					throw new GBLAPIError({
+						statusCode: p.statusCode,
+						body: p.body,
+						type: "Server Error"
+					});
+					break;
+				default:
+					throw new GBLAPIError({
+						statusCode: b.statusCode,
+						body: b.body,
+						type: "Unkown"
+					});
+            }
+            return {
+                id: b.body.id || id,
+                username: b.body.username || "Unknown",
+                discriminator: b.body.discriminator || "0000",
+                avatar: b.body.avatar,
+                background: b.body.background || null,
+                bio: b.body.bio,
+                isVerified: b.body.verified || false,
+                isMod: b.body.mod || false,
+                isAdmin: b.body.admin || false,
+                karma: b.body.karma || 0,
+                totalKarma: b.body.totalKarma || 0,
+            }
+        }).catch(err => { throw err; });
+    }
+
+    /**
+     * Get votes of a bot
+     * @param {string} [id] The ID of the bot to gain votes from.
+     * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
+     * @returns {Promise<{}>}
+     */
+    async getVotes(id = this.id, auth = this.token) {
+        return console.log("[GlennBotList](Client#getVotes) This function has not been completed, therefor it has been disabled.")
+        // if (!id) throw new TypeError("Missing Bot ID");
+        // if (!auth) throw new TypeError("Missing Authentication Token");
+        // return phin({
+        //     method: "GET",
+        //     url: `https://glennbotlist.xyz/api/upvotes/bot/${id}`,
+        //     parse: "json",
+        //     data: {
+        //         auth
+        //     },
+        //     headers: {
+        //         "Content-Type": 'application/json'
+        //     },
+        // }).then((b) => {
+        //     if (b.statusCode !== 200) switch (b.statusCode) {
+		// 		case 400:
+        //             throw new GBLAPIError({
+        //                 statusCode: p.statusCode,
+        //                 body: p.body,
+        //                 type: "Bad Request"
+        //             });
+        //             break;
+		// 		case 401:
+        //             throw new GBLAPIError({
+        //                 statusCode: p.statusCode,
+        //                 body: p.body,
+        //                 type: "Unauthorized"
+        //             });
+        //             break;
+		// 		case 403:
+        //             throw new GBLAPIError({
+        //                 statusCode: p.statusCode,
+        //                 body: p.body,
+        //                 type: "Bad Request"
+        //             });
+		// 		    break;
+		// 		case 404:
+        //             throw new GBLAPIError({
+        //                 statusCode: p.statusCode,
+        //                 body: p.body,
+        //                 type: "Not Found"
+        //             });
+        //             break;
+		// 		case 500:
+		// 		case 502:
+		// 			throw new GBLAPIError({
+		// 				statusCode: p.statusCode,
+		// 				body: p.body,
+		// 				type: "Server Error"
+		// 			});
+		// 			break;
+		// 		default:
+		// 			throw new GBLAPIError({
+		// 				statusCode: b.statusCode,
+		// 				body: b.body,
+		// 				type: "Unkown"
+		// 			});
+        //     }
+        //     return {
+        //         id: b.body.id || id,
+        //         upvotes: b.body.upvotes || null,
+        //         total_votes: b.body.totalUpvotes || 0
+        //     }
+        // }).catch(err => { throw err; });
+    }
+
+    /**
      * Post server count
      * @param {number} serverCount The number of servers your bot is in
      * @param {number} shardCount The number of shards your bot has
      * @param {string} [id] The ID to post the stats to, if changed
      * @param {token} [auth] The token used to post the stats, if needed
-     * @returns {Promis<{ message: string, success: boolean }>}
+     * @returns {Promise<{ message: string, success: boolean }>}
      */
     async updateStats(serverCount = 0, shardCount = 0, id = this.id, auth = this.token) {
         console.log(`[GlennBotList] Posting Stats...`);
