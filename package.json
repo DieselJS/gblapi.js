@@ -1,6 +1,6 @@
 {
   "name": "gblapi.js",
-  "version": "1.1.2",
+  "version": "1.2.2",
   "description": "An API for the GlennBotList",
   "main": "index.js",
   "scripts": {
