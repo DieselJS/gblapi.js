@@ -1,3 +1,4 @@
 # Stuff people don't need.
 node_modules/
 package-lock.json
+test/index.js
