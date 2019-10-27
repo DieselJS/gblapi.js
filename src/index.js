@@ -1,24 +1,33 @@
 const EventEmitter = require('eventemitter3');
 const phin = require('phin');
 const GBLAPIError = require('./GBLAPIError');
+const util = require('util');
 
 class GBLAPI extends EventEmitter {
     /**
      * Main Class
      * @param {string} id Client ID
      * @param {string} token GlennBotList Client Token
+     * @param {boolean} logs Automatic logs?
      * @param {object} options Client Options
      */
-    constructor(id, token, options) {
+    constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
+        if (logs !== false && logs !== true) throw new TypeError("Logs is neither true or false");
         if (!options) options = {};
 
         super();
 
         this._id = id;
         this._token = token;
-        this._options = options;
+        this._logging = logs;
+        this._options = options || {};
+
+        if (this._options.webhookPort || this._options.webhookServer) {
+            const GBLWebhook = require('./webhook');
+            this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth, this._options.webhookServer);
+        }
     }
 
     get id() {
@@ -27,6 +36,10 @@ class GBLAPI extends EventEmitter {
 
     get token() {
         return this._token;
+    }
+
+    get logging() {
+        return !!this._logging;
     }
 
     get options() {
@@ -336,7 +349,9 @@ class GBLAPI extends EventEmitter {
      * @returns {Promise<{ message: string, success: boolean }>}
      */
     async updateStats(serverCount = 0, shardCount = 0, id = this.id, auth = this.token) {
-        console.log(`[GlennBotList] Posting Stats...`);
+        if (this._logging === true) {
+            console.log(`[GlennBotList] Posting Stats...`);
+        }
         let authorization = auth;
         return phin({
             method: "POST",
@@ -403,7 +418,83 @@ class GBLAPI extends EventEmitter {
             throw err;
         });
     }
+
+    /**
+     * If user has voted
+     * @param {string} [uid] The ID of the user to see if they voted.
+     * @param {string} [id] The ID of the bot to gain stats from.
+     * @returns {Boolean}
+     * @example
+     * Glenn.hasVoted('414713250832449536')
+     *   .then(d => {
+     *     if (d) console.log("User has voted!")
+     *     else console.log("User has not voted.")
+     *   }).catch(console.error);
+     */
+    async hasVoted(uid, id = this.id) {
+        if (!uid) throw new TypeError("Missing User ID");
+        if (!id) {
+            if(!this._id) throw new TypeError("Missing Bot ID");
+        }
+        return phin({
+            url: `https://glennbotlist.xyz/api/bot/${id}`,
+            parse: "json"
+        }).then((b) => {
+            if (b.statusCode !== 200) switch (b.statusCode) {
+				case 400:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+                    break;
+				case 401:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Unauthorized"
+                    });
+                    break;
+				case 403:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Bad Request"
+                    });
+				    break;
+				case 404:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Not Found"
+                    });
+                    break;
+				case 500:
+				case 502:
+					throw new GBLAPIError({
+						statusCode: p.statusCode,
+						body: p.body,
+						type: "Server Error"
+					});
+					break;
+				default:
+					throw new GBLAPIError({
+						statusCode: b.statusCode,
+						body: b.body,
+						type: "Unkown"
+					});
+            }
+            for (let i = 0; i < b.body.votes.length; i++) {
+                if (b.body.votes[i].id === uid) {
+                    return true;
+                }
+            }
+            return false;
+        }).catch(err => { throw err; });
+    }
 }
+
+GBLAPI.prototype.getBotVotes = util.deprecate(GBLAPI.prototype.getBotVotes, 'GBL#getBotVotes: use GBL#hasVoted instead');
 
 module.exports = GBLAPI;
 
