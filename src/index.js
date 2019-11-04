@@ -55,55 +55,55 @@ class GBLAPI extends EventEmitter {
     async getBotVotes(uid, id = this.id) {
         if (!uid) throw new TypeError("Missing User ID");
         if (!id) {
-            if(!this._id) throw new TypeError("Missing Bot ID");
+            if (!this._id) throw new TypeError("Missing Bot ID");
         }
         return phin({
             url: `https://glennbotlist.xyz/api/bot/${id}`,
             parse: "json"
         }).then((b) => {
             if (b.statusCode !== 200) switch (b.statusCode) {
-				case 400:
+                case 400:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
                     break;
-				case 401:
+                case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
                     break;
-				case 403:
+                case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-				    break;
-				case 404:
+                    break;
+                case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
                     break;
-				case 500:
-				case 502:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Server Error"
-					});
-					break;
-				default:
-					throw new GBLAPIError({
-						statusCode: b.statusCode,
-						body: b.body,
-						type: "Unkown"
-					});
+                case 500:
+                case 502:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Server Error"
+                    });
+                    break;
+                default:
+                    throw new GBLAPIError({
+                        statusCode: b.statusCode,
+                        body: b.body,
+                        type: "Unkown"
+                    });
             }
             for (let i = 0; i < b.body.votes.length; i++) {
                 if (b.body.votes[i].id === uid) {
@@ -126,48 +126,48 @@ class GBLAPI extends EventEmitter {
             parse: "json"
         }).then((b) => {
             if (b.statusCode !== 200) switch (b.statusCode) {
-				case 400:
+                case 400:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
                     break;
-				case 401:
+                case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
                     break;
-				case 403:
+                case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-				    break;
-				case 404:
+                    break;
+                case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
                     break;
-				case 500:
-				case 502:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Server Error"
-					});
-					break;
-				default:
-					throw new GBLAPIError({
-						statusCode: b.statusCode,
-						body: b.body,
-						type: "Unkown"
-					});
+                case 500:
+                case 502:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Server Error"
+                    });
+                    break;
+                default:
+                    throw new GBLAPIError({
+                        statusCode: b.statusCode,
+                        body: b.body,
+                        type: "Unkown"
+                    });
             }
             return {
                 id: b.body.id || id,
@@ -184,10 +184,10 @@ class GBLAPI extends EventEmitter {
                 prefix: b.body.prefix,
                 verified: b.body.verified || false,
                 trusted: b.body.trusted || false,
-                vanity_url: b.body.vanityUrl  || "",
+                vanity_url: b.body.vanityUrl || "",
                 featured: b.body.featured || false,
-                invite: b.body.inviteUrl  || `https://discordapp.com/oauth2/authorize?client_id=${b.body.id || id}&scope=bot`,
-                server_count: b.body.serverCount  || 0,
+                invite: b.body.inviteUrl || `https://discordapp.com/oauth2/authorize?client_id=${b.body.id || id}&scope=bot`,
+                server_count: b.body.serverCount || 0,
                 shard_count: b.body.shardCount || 0,
                 tags: b.body.tags,
                 votes: b.body.votes,
@@ -208,48 +208,48 @@ class GBLAPI extends EventEmitter {
             parse: "json"
         }).then((b) => {
             if (b.statusCode !== 200) switch (b.statusCode) {
-				case 400:
+                case 400:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
                     break;
-				case 401:
+                case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
                     break;
-				case 403:
+                case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-				    break;
-				case 404:
+                    break;
+                case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
                     break;
-				case 500:
-				case 502:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Server Error"
-					});
-					break;
-				default:
-					throw new GBLAPIError({
-						statusCode: b.statusCode,
-						body: b.body,
-						type: "Unkown"
-					});
+                case 500:
+                case 502:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Server Error"
+                    });
+                    break;
+                default:
+                    throw new GBLAPIError({
+                        statusCode: b.statusCode,
+                        body: b.body,
+                        type: "Unkown"
+                    });
             }
             return {
                 id: b.body.id || id,
@@ -289,48 +289,48 @@ class GBLAPI extends EventEmitter {
         //     },
         // }).then((b) => {
         //     if (b.statusCode !== 200) switch (b.statusCode) {
-		// 		case 400:
+        // 		case 400:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Bad Request"
         //             });
         //             break;
-		// 		case 401:
+        // 		case 401:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Unauthorized"
         //             });
         //             break;
-		// 		case 403:
+        // 		case 403:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Bad Request"
         //             });
-		// 		    break;
-		// 		case 404:
+        // 		    break;
+        // 		case 404:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Not Found"
         //             });
         //             break;
-		// 		case 500:
-		// 		case 502:
-		// 			throw new GBLAPIError({
-		// 				statusCode: p.statusCode,
-		// 				body: p.body,
-		// 				type: "Server Error"
-		// 			});
-		// 			break;
-		// 		default:
-		// 			throw new GBLAPIError({
-		// 				statusCode: b.statusCode,
-		// 				body: b.body,
-		// 				type: "Unkown"
-		// 			});
+        // 		case 500:
+        // 		case 502:
+        // 			throw new GBLAPIError({
+        // 				statusCode: p.statusCode,
+        // 				body: p.body,
+        // 				type: "Server Error"
+        // 			});
+        // 			break;
+        // 		default:
+        // 			throw new GBLAPIError({
+        // 				statusCode: b.statusCode,
+        // 				body: b.body,
+        // 				type: "Unkown"
+        // 			});
         //     }
         //     return {
         //         id: b.body.id || id,
@@ -367,53 +367,53 @@ class GBLAPI extends EventEmitter {
             parse: "json"
         }).then((p) => {
             if (p.statusCode !== 200) switch (p.statusCode) {
-				case 400:
+                case 400:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
                     break;
-				case 401:
+                case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
                     break;
-				case 403:
+                case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-				    break;
-				case 404:
+                    break;
+                case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
                     break;
-				case 500:
-				case 502:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Server Error"
-					});
-					break;
-				default:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Unkown"
-					});
-			}
-			return {
-				message: p.body.message || "Successful request.",
-				success: p.statusCode === 200
-			};
+                case 500:
+                case 502:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Server Error"
+                    });
+                    break;
+                default:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Unkown"
+                    });
+            }
+            return {
+                message: p.body.message || "Successful request.",
+                success: p.statusCode === 200
+            };
         }).catch(err => {
             throw err;
         });
@@ -434,62 +434,58 @@ class GBLAPI extends EventEmitter {
     async hasVoted(uid, id = this.id) {
         if (!uid) throw new TypeError("Missing User ID");
         if (!id) {
-            if(!this._id) throw new TypeError("Missing Bot ID");
+            if (!this._id) throw new TypeError("Missing Bot ID");
         }
         return phin({
             url: `https://glennbotlist.xyz/api/bot/${id}`,
             parse: "json"
         }).then((b) => {
             if (b.statusCode !== 200) switch (b.statusCode) {
-				case 400:
+                case 400:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
                     break;
-				case 401:
+                case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
                     break;
-				case 403:
+                case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-				    break;
-				case 404:
+                    break;
+                case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
                     break;
-				case 500:
-				case 502:
-					throw new GBLAPIError({
-						statusCode: p.statusCode,
-						body: p.body,
-						type: "Server Error"
-					});
-					break;
-				default:
-					throw new GBLAPIError({
-						statusCode: b.statusCode,
-						body: b.body,
-						type: "Unkown"
-					});
+                case 500:
+                case 502:
+                    throw new GBLAPIError({
+                        statusCode: p.statusCode,
+                        body: p.body,
+                        type: "Server Error"
+                    });
+                    break;
+                default:
+                    throw new GBLAPIError({
+                        statusCode: b.statusCode,
+                        body: b.body,
+                        type: "Unkown"
+                    });
             }
-            for (let i = 0; i < b.body.votes.length; i++) {
-                if (b.body.votes[i].id === uid) {
-                    return true;
-                }
-            }
-            return false;
+            let voted = b.body.votes.map(i => i.id == uid);
+            if (voted) { return true } else { return false }
         }).catch(err => { throw err; });
     }
 }
