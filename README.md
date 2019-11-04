@@ -52,6 +52,7 @@ Glenn.hasVoted().then((d) => console.log(d));
 
 # Author
 > Made by `DieselJS#1689` for [Glenn Bot List](https://glennbotlist.xyz)
+> 
 > Small edits by `ERIK#1001`
 
 # Documentation
