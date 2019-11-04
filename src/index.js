@@ -68,28 +68,28 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
-                    break;
+
                 case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
-                    break;
+
                 case 500:
                 case 502:
                     throw new GBLAPIError({
@@ -97,7 +97,7 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Server Error"
                     });
-                    break;
+
                 default:
                     throw new GBLAPIError({
                         statusCode: b.statusCode,
@@ -132,28 +132,28 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
-                    break;
+
                 case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
-                    break;
+
                 case 500:
                 case 502:
                     throw new GBLAPIError({
@@ -161,7 +161,7 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Server Error"
                     });
-                    break;
+
                 default:
                     throw new GBLAPIError({
                         statusCode: b.statusCode,
@@ -214,28 +214,28 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
-                    break;
+
                 case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
-                    break;
+
                 case 500:
                 case 502:
                     throw new GBLAPIError({
@@ -243,7 +243,7 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Server Error"
                     });
-                    break;
+
                 default:
                     throw new GBLAPIError({
                         statusCode: b.statusCode,
@@ -295,28 +295,28 @@ class GBLAPI extends EventEmitter {
         //                 body: p.body,
         //                 type: "Bad Request"
         //             });
-        //             break;
+        //             
         // 		case 401:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Unauthorized"
         //             });
-        //             break;
+        //             
         // 		case 403:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Bad Request"
         //             });
-        // 		    break;
+        // 		    
         // 		case 404:
         //             throw new GBLAPIError({
         //                 statusCode: p.statusCode,
         //                 body: p.body,
         //                 type: "Not Found"
         //             });
-        //             break;
+        //             
         // 		case 500:
         // 		case 502:
         // 			throw new GBLAPIError({
@@ -324,7 +324,7 @@ class GBLAPI extends EventEmitter {
         // 				body: p.body,
         // 				type: "Server Error"
         // 			});
-        // 			break;
+        // 			
         // 		default:
         // 			throw new GBLAPIError({
         // 				statusCode: b.statusCode,
@@ -373,28 +373,28 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
-                    break;
+
                 case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
-                    break;
+
                 case 500:
                 case 502:
                     throw new GBLAPIError({
@@ -402,7 +402,7 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Server Error"
                     });
-                    break;
+
                 default:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
@@ -447,28 +447,26 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
                 case 401:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Unauthorized"
                     });
-                    break;
                 case 403:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Bad Request"
                     });
-                    break;
+
                 case 404:
                     throw new GBLAPIError({
                         statusCode: p.statusCode,
                         body: p.body,
                         type: "Not Found"
                     });
-                    break;
+
                 case 500:
                 case 502:
                     throw new GBLAPIError({
@@ -476,7 +474,7 @@ class GBLAPI extends EventEmitter {
                         body: p.body,
                         type: "Server Error"
                     });
-                    break;
+
                 default:
                     throw new GBLAPIError({
                         statusCode: b.statusCode,
