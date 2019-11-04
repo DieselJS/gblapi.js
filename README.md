@@ -32,7 +32,7 @@ bot.login('your discord bot token');
 ```js
 Glenn.getBot().then((d) => console.log(d));
 Glenn.getUser().then((d) => console.log(d));
-Glenn.getBotVotes().then((d) => console.log(d));
+Glenn.hasVoted().then((d) => console.log(d));
 ```
 
 # Author
