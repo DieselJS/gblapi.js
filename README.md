@@ -37,6 +37,7 @@ Glenn.hasVoted().then((d) => console.log(d));
 
 # Author
 > Made by `DieselJS#1689` for [Glenn Bot List](https://glennbotlist.xyz)
+> Small edits by `ERIK#1001`
 
 # Documentation
 > We have a Wiki, it is pretty bad, figure it out yourself until a better one is made :)
