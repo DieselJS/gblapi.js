@@ -22,7 +22,7 @@ class GBLAPI extends EventEmitter {
 
         this._id = id;
         this._token = token;
-        this._logging = logs;
+        this._logging = logs || true;
         this._options = options || {};
 
         // if (this._options.webhookPort || this._options.webhookServer) {
