@@ -28,6 +28,7 @@ class GBLAPI extends EventEmitter {
         if (this._options.webhookPort || this._options.webhookServer) {
             const GBLWebhook = require('./webhook');
             this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
+            this.webhook.on("vote", (test) => console.log(test))
         }
     }
 
