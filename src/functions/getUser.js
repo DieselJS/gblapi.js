@@ -1,61 +1,56 @@
+const axios = require('axios');
 const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (id) {
-    return phin({
-        parse: "json"
-    }).then((b) => {
-        if (b.statusCode !== 200) switch (b.statusCode) {
+    return axios({
+        url: `https://glennbotlist.xyz/api/profiles/${id}`
+    }).then(async p => {
+        return await p.data;
+    }).catch(err => {
+        if (err.response.status !== 200) switch (err.response.status) {
             case 400:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Bad Request"
                 });
+
             case 401:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Unauthorized"
                 });
+
             case 403:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Bad Request"
                 });
+
             case 404:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Not Found"
                 });
+
             case 500:
             case 502:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Server Error"
                 });
 
             default:
                 throw new GBLAPIError({
-                    statusCode: b.statusCode,
-                    body: b.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Unkown"
                 });
         }
-        return {
-            id: b.body.id || id,
-            username: b.body.username || "Unknown",
-            discriminator: b.body.discriminator || "0000",
-            avatar: b.body.avatar,
-            background: b.body.background || null,
-            bio: b.body.bio,
-            isVerified: b.body.verified || false,
-            isMod: b.body.mod || false,
-            isAdmin: b.body.admin || false,
-            karma: b.body.karma || 0,
-            totalKarma: b.body.totalKarma || 0,
-        }
-    }).catch(err => { throw err; });
+    })
+
 }

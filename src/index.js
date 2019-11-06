@@ -54,7 +54,7 @@ class GBLAPI extends EventEmitter {
      */
     async getBot(id = this.id) {
         if (!id) throw new TypeError("Missing Bot ID");
-        getBot(id);
+        return getBot(id);
     }
 
     /**
@@ -64,7 +64,7 @@ class GBLAPI extends EventEmitter {
      */
     async getUser(id = this.id) {
         if (!id) throw new TypeError("Missing User ID");
-        getUser(id);
+        return getUser(id);
     }
 
     /**
@@ -73,11 +73,11 @@ class GBLAPI extends EventEmitter {
      * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
      * @returns {Promise<{}>}
      */
-    async getVotes(id = this.id, auth = this.token) {
+    async getVotes(id = this.id) {
         console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
         if (!id) throw new TypeError("Missing Bot ID");
         if (!auth) throw new TypeError("Missing Authentication Token");
-        getVotes(id, auth);
+        return getVotes(id, auth);
     }
 
     /**
@@ -92,7 +92,7 @@ class GBLAPI extends EventEmitter {
         if (this._logging === true) {
             console.log(`[GlennBotList] Posting Stats...`);
         }
-        updateStats(serverCount, shardCount, id, auth);
+        return updateStats(serverCount, shardCount, id, auth);
     }
 
     /**
@@ -112,7 +112,7 @@ class GBLAPI extends EventEmitter {
         if (!id) {
             if (!this._id) throw new TypeError("Missing Bot ID");
         }
-        hasVoted(uid, id)
+        return hasVoted(uid, id, auth)
     }
 }
 

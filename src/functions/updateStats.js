@@ -1,7 +1,7 @@
 const axios = require('axios');
 const GBLAPIError = require('./GBLAPIError');
 
-module.exports = async function (serverCount, shardCount, id, auth) {
+module.exports = async function (serverCount, shardCount, id, authorization) {
 
     return axios({
         method: "post",
@@ -9,73 +9,57 @@ module.exports = async function (serverCount, shardCount, id, auth) {
         data: {
             serverCount,
             shardCount,
-            auth
+            authorization
         }
-    })
-
-    return phin({
-        method: "POST",
-        url: `https://glennbotlist.xyz/api/stats/bot/${id}`,
-        data: {
-            serverCount,
-            shardCount,
-            auth
-        },
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        parse: "json"
-    }).then((p) => {
-        if (p.statusCode !== 200) switch (p.statusCode) {
+    }).then(p => {
+        return {
+            message: p.data.message || "Successful request.",
+            success: p.status === 200
+        };
+    }).catch(err => {
+        if (err.response.status !== 200) switch (err.response.status) {
             case 400:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Bad Request"
                 });
 
             case 401:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Unauthorized"
                 });
 
             case 403:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Bad Request"
                 });
 
             case 404:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Not Found"
                 });
 
             case 500:
             case 502:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Server Error"
                 });
 
             default:
                 throw new GBLAPIError({
-                    statusCode: p.statusCode,
-                    body: p.body,
+                    statusCode: err.response.status,
+                    body: err.body,
                     type: "Unkown"
                 });
         }
-        return {
-            message: p.body.message || "Successful request.",
-            success: p.statusCode === 200
-        };
-    }).catch(err => {
-        throw err;
-    });
-
+    })
 }
