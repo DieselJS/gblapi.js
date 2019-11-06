@@ -1,4 +1,4 @@
-const phin = require('phin');
+const axios = require('axios');
 const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (uid, id) {

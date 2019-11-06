@@ -1,4 +1,3 @@
-const phin = require('phin');
 const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (id) {

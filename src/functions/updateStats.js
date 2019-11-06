@@ -1,7 +1,18 @@
-const phin = require('phin');
+const axios = require('axios');
 const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (serverCount, shardCount, id, auth) {
+
+    return axios({
+        method: "post",
+        url: `https://glennbotlist.xyz/api/stats/bot/${id}`,
+        data: {
+            serverCount,
+            shardCount,
+            auth
+        }
+    })
+
     return phin({
         method: "POST",
         url: `https://glennbotlist.xyz/api/stats/bot/${id}`,
