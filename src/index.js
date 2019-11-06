@@ -1,6 +1,4 @@
 const EventEmitter = require('eventemitter3');
-const util = require('util');
-
 const getBot = require('./functions/getBot');
 const getUser = require('./functions/getUser');
 const updateStats = require('./functions/updateStats');
@@ -18,15 +16,19 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (logs !== false && logs !== true) logs = true;
         if (!options) options = {};
-
+        if (!logs) logs = true;
         super();
 
         this._id = id;
         this._token = token;
-        this._logging = logs || true;
-        this._options = options || {};
+        this._logging = logs;
+        this._options = options;
+
+        // if (this._options.webhookPort || this._options.webhookServer) {
+        //     const GBLWebhook = require('./webhook');
+        //     this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth, this._options.webhookServer);
+        // }
     }
 
     get id() {
@@ -71,7 +73,7 @@ class GBLAPI extends EventEmitter {
      * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
      * @returns {Promise<{}>}
      */
-    async getVotes(id = this.id, auth = this.token) {
+    async getVotes(id = this.id) {
         console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
         if (!id) throw new TypeError("Missing Bot ID");
         if (!auth) throw new TypeError("Missing Authentication Token");
@@ -110,7 +112,7 @@ class GBLAPI extends EventEmitter {
         if (!id) {
             if (!this._id) throw new TypeError("Missing Bot ID");
         }
-        return hasVoted(uid, id)
+        return hasVoted(uid, id, auth)
     }
 }
 

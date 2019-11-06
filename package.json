@@ -14,8 +14,8 @@
   "author": "DieselJS",
   "license": "ISC",
   "dependencies": {
-    "eventemitter3": "^4.0.0",
-    "phin": "^3.4.0"
+    "axios": "^0.19.0",
+    "eventemitter3": "^4.0.0"
   },
   "typings": "./typings/index.d.ts"
 }
