@@ -1,9 +1,12 @@
 const EventEmitter = require('eventemitter3');
 const util = require('util');
+
 const getBot = require('./functions/getBot');
 const getUser = require('./functions/getUser');
 const updateStats = require('./functions/updateStats');
 const hasVoted = require('./functions/hasVoted');
+const getVotes = require('./functions/getVotes');
+
 class GBLAPI extends EventEmitter {
     /**
      * Main Class
@@ -74,70 +77,10 @@ class GBLAPI extends EventEmitter {
      * @returns {Promise<{}>}
      */
     async getVotes(id = this.id, auth = this.token) {
-        return console.log("[GlennBotList](Client#getVotes) This function has not been completed, therefor it has been disabled.")
-        // if (!id) throw new TypeError("Missing Bot ID");
-        // if (!auth) throw new TypeError("Missing Authentication Token");
-        // return phin({
-        //     method: "GET",
-        //     url: `https://glennbotlist.xyz/api/upvotes/bot/${id}`,
-        //     parse: "json",
-        //     data: {
-        //         auth
-        //     },
-        //     headers: {
-        //         "Content-Type": 'application/json'
-        //     },
-        // }).then((b) => {
-        //     if (b.statusCode !== 200) switch (b.statusCode) {
-        // 		case 400:
-        //             throw new GBLAPIError({
-        //                 statusCode: p.statusCode,
-        //                 body: p.body,
-        //                 type: "Bad Request"
-        //             });
-        //             
-        // 		case 401:
-        //             throw new GBLAPIError({
-        //                 statusCode: p.statusCode,
-        //                 body: p.body,
-        //                 type: "Unauthorized"
-        //             });
-        //             
-        // 		case 403:
-        //             throw new GBLAPIError({
-        //                 statusCode: p.statusCode,
-        //                 body: p.body,
-        //                 type: "Bad Request"
-        //             });
-        // 		    
-        // 		case 404:
-        //             throw new GBLAPIError({
-        //                 statusCode: p.statusCode,
-        //                 body: p.body,
-        //                 type: "Not Found"
-        //             });
-        //             
-        // 		case 500:
-        // 		case 502:
-        // 			throw new GBLAPIError({
-        // 				statusCode: p.statusCode,
-        // 				body: p.body,
-        // 				type: "Server Error"
-        // 			});
-        // 			
-        // 		default:
-        // 			throw new GBLAPIError({
-        // 				statusCode: b.statusCode,
-        // 				body: b.body,
-        // 				type: "Unkown"
-        // 			});
-        //     }
-        //     return {
-        //         id: b.body.id || id,
-        //         upvotes: b.body.upvotes || null,
-        //         total_votes: b.body.totalUpvotes || 0
-        //     }
-        // }).catch(err => { throw err; });
+        console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
+        if (!id) throw new TypeError("Missing Bot ID");
+        if (!auth) throw new TypeError("Missing Authentication Token");
+        getVotes(id, auth);
     }
 
     /**
