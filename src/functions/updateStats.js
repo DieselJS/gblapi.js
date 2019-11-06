@@ -61,5 +61,5 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
                     type: "Unkown"
                 });
         }
-    })
+    });
 }
