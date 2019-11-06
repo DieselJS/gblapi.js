@@ -48,6 +48,7 @@ bot.login('your discord bot token');
 Glenn.getBot().then((d) => console.log(d));
 Glenn.getUser().then((d) => console.log(d));
 Glenn.hasVoted().then((d) => console.log(d));
+Glenn.getVotes().then((d) => console.log(d));
 ```
 
 # Author
