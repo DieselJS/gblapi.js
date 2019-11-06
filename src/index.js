@@ -18,7 +18,7 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (logs !== false && logs !== true) throw new TypeError("Logs is neither true or false");
+        if (logs !== false && logs !== true) logs = true;
         if (!options) options = {};
 
         super();
@@ -27,11 +27,6 @@ class GBLAPI extends EventEmitter {
         this._token = token;
         this._logging = logs || true;
         this._options = options || {};
-
-        // if (this._options.webhookPort || this._options.webhookServer) {
-        //     const GBLWebhook = require('./webhook');
-        //     this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth, this._options.webhookServer);
-        // }
     }
 
     get id() {
@@ -57,7 +52,7 @@ class GBLAPI extends EventEmitter {
      */
     async getBot(id = this.id) {
         if (!id) throw new TypeError("Missing Bot ID");
-        getBot(id);
+        return getBot(id);
     }
 
     /**
@@ -67,7 +62,7 @@ class GBLAPI extends EventEmitter {
      */
     async getUser(id = this.id) {
         if (!id) throw new TypeError("Missing User ID");
-        getUser(id);
+        return getUser(id);
     }
 
     /**
@@ -80,7 +75,7 @@ class GBLAPI extends EventEmitter {
         console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
         if (!id) throw new TypeError("Missing Bot ID");
         if (!auth) throw new TypeError("Missing Authentication Token");
-        getVotes(id, auth);
+        return getVotes(id, auth);
     }
 
     /**
@@ -95,7 +90,7 @@ class GBLAPI extends EventEmitter {
         if (this._logging === true) {
             console.log(`[GlennBotList] Posting Stats...`);
         }
-        updateStats(serverCount, shardCount, id, auth);
+        return updateStats(serverCount, shardCount, id, auth);
     }
 
     /**
@@ -115,7 +110,7 @@ class GBLAPI extends EventEmitter {
         if (!id) {
             if (!this._id) throw new TypeError("Missing Bot ID");
         }
-        hasVoted(uid, id)
+        return hasVoted(uid, id)
     }
 }
 

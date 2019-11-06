@@ -2,13 +2,14 @@ const phin = require('phin');
 const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (serverCount, shardCount, id, auth) {
+    let authorization = auth;
     return phin({
         method: "POST",
         url: `https://glennbotlist.xyz/api/stats/bot/${id}`,
         data: {
             serverCount,
             shardCount,
-            auth
+            authorization
         },
         headers: {
             "Content-Type": 'application/json'
@@ -66,5 +67,4 @@ module.exports = async function (serverCount, shardCount, id, auth) {
     }).catch(err => {
         throw err;
     });
-
 }
