@@ -1,6 +1,4 @@
 const EventEmitter = require('eventemitter3');
-const util = require('util');
-
 const getBot = require('./functions/getBot');
 const getUser = require('./functions/getUser');
 const updateStats = require('./functions/updateStats');
@@ -18,7 +16,6 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (logs !== false && logs !== true) throw new TypeError("Logs is neither true or false");
         if (!options) options = {};
 
         super();
@@ -27,6 +24,7 @@ class GBLAPI extends EventEmitter {
         this._token = token;
         this._logging = logs || true;
         this._options = options || {};
+        if (logs !== false && logs !== true) throw new TypeError("Logs is neither true or false");
 
         // if (this._options.webhookPort || this._options.webhookServer) {
         //     const GBLWebhook = require('./webhook');
