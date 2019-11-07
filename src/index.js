@@ -16,9 +16,11 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (logs.webhookPort || !logs == false || !logs) {
-            options = logs;
-            logs = true;
+        if (logs) {
+            if (logs.webhookPort || !logs == false || !logs) {
+                options = logs;
+                logs = true;
+            }
         }
         super();
         this._id = id;
