@@ -11,11 +11,11 @@ class GBLWebhook extends EventEmitter {
     constructor(webhookPort, webhookPath, webhookAuth) {
         if (!webhookAuth) throw new TypeError("Missing Webhook Authentication");
         super();
-
-        this._webhookPort = webhookPort || 3001;
-        this._webhookPath = webhookPath || "/GBLWebhook";
+        this._webhookPort = webhookPort;
+        this._webhookPath = webhookPath;
         this._webhookAuth = webhookAuth;
-
+        if (!this._webhookPort) webhookPort = 3001;
+        if (!this._webhookPath) webhookPath = "/GBLWebhook";
         this.app = new express();
 
         this.app.use(express.json());
