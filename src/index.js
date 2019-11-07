@@ -30,7 +30,7 @@ class GBLAPI extends EventEmitter {
         if (!options.webhookPath) options.webhookPath = "/GBLWebhook";
 
 
-        if (this._options.webhookAuth) {
+        if (options.webhookAuth) {
             const GBLWebhook = require('./webhook');
             this.webhook = new GBLWebhook(options.webhookPort, options.webhookPath, options.webhookAuth);
         }
