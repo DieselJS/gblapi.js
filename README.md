@@ -62,8 +62,10 @@ Glenn.webhook.on("vote", vote => console.log(vote)) // Will send you the user th
 Glenn.webhook.on("ready", console.log) // Will console log when the webhook is online and ready to use!
 ```
 
-# Author
+# Authors
 > Made by `DieselJS#1689` and `ERIK#1001`
+> 
+> Wiki by `Condingpro#0001`
 
 # Documentation
 > Our wiki is maintained by `Codingpro#0001`.
