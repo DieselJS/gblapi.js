@@ -17,7 +17,10 @@ class GBLAPI extends EventEmitter {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
         if (!options) options = {};
-        if (!logs == false || !logs) logs = true;
+        if (logs !== false || !logs || typeof logs == Object) {
+            options = logs;
+            logs = true;
+        }
         super();
 
         this._id = id;
@@ -28,7 +31,6 @@ class GBLAPI extends EventEmitter {
         if (this._options.webhookPort || this._options.webhookServer) {
             const GBLWebhook = require('./webhook');
             this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
-            this.webhook.on("vote", (test) => console.log(test))
         }
     }
 
@@ -113,7 +115,7 @@ class GBLAPI extends EventEmitter {
         if (!id) {
             if (!this._id) throw new TypeError("Missing Bot ID");
         }
-        return hasVoted(uid, id, auth)
+        return hasVoted(uid, id)
     }
 }
 
