@@ -23,21 +23,31 @@ class GBLWebhook extends EventEmitter {
         this.app.set('port', port);
         var server = http.createServer(this.app);
         this.router = express.Router()
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
+
         /**
          * Listen on provided port, on all network interfaces.
          */
 
         server.listen(port);
         server.on('error', onError);
+        server.on('listening', () => {
+            this.emit("ready", `Glenn Bot List Webhook is running on port ${webhookPort} with path ${webhookPath}. Direct link: 0.0.0.0:${webhookPort}${webhookPath}`)
+        })
         /**
          * Normalize a port into a number, string, or false.
          */
-        this.app.use(webhookPath, () => {
-            console.log("testing works")
-            let testObj = {
-                user: "test"
+        this.app.use(webhookPath, (req, res) => {
+            if (req.body.auth !== webhookAuth) {
+                res.status(401)
+                delete req.body.auth
+                return res.json({ invalidauth: true })
             }
-            this.emit("vote", testObj)
+            delete req.body.auth
+            this.emit("vote", req.body)
+            res.status(200)
+            return res.json({ good: true })
         })
         function normalizePort(val) {
             var port = parseInt(val, 10);

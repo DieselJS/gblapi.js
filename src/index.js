@@ -17,21 +17,20 @@ class GBLAPI extends EventEmitter {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
         if (!options) options = {};
-        if (logs !== false || !logs || typeof logs == Object) {
+        if (logs.webhookPort || !logs == false || !logs) {
             options = logs;
             logs = true;
         }
         super();
-
         this._id = id;
         this._token = token;
         this._logging = logs;
         this._options = options;
 
-        /* if (this._options.webhookPort || this._options.webhookServer) {
-             const GBLWebhook = require('./webhook');
-             this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
-         }*/
+        if (this._options.webhookPort) {
+            const GBLWebhook = require('./webhook');
+            this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
+        }
     }
 
     get id() {
