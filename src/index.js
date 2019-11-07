@@ -28,10 +28,10 @@ class GBLAPI extends EventEmitter {
         this._logging = logs;
         this._options = options;
 
-        if (this._options.webhookPort || this._options.webhookServer) {
-            const GBLWebhook = require('./webhook');
-            this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
-        }
+        /* if (this._options.webhookPort || this._options.webhookServer) {
+             const GBLWebhook = require('./webhook');
+             this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth);
+         }*/
     }
 
     get id() {
