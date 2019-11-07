@@ -1,4 +1,4 @@
-# GBLAPI.js - The official
+# GBLAPI.js - The official JS API Wrapper for the GBL API
 
 # About
 This is the **official** api wrapper for GlennBotList.xyz written in JS, and published to NPMjs
@@ -51,13 +51,13 @@ Glenn.hasVoted().then((d) => console.log(d));
 Glenn.getVotes().then((d) => console.log(d));
 ```
 
-# Author
-> Made by `DieselJS#1689` for [Glenn Bot List](https://glennbotlist.xyz)
+# Authors
+> Made by `DieselJS#1689` and `ERIK#1001`
 > 
-> Small edits by `ERIK#1001`
+> Wiki by `Condingpro#0001`
 
 # Documentation
-> We have a Wiki, it is pretty bad, figure it out yourself until a better one is made :)
+> Our wiki is maintained by `Codingpro#0001`.
 
 # Help
 > Join our [Discord Server](https://glennbotlist.xyz/discord) for help on this module.
