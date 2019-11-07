@@ -17,8 +17,8 @@ class GBLAPI extends EventEmitter {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
         if (logs) {
-            if (logs.webhookPort || !logs == false || !logs) {
-                if (logs.webhookPort) {
+            if (logs.webhookAuth || !logs == false || !logs) {
+                if (logs.webhookAuth) {
                     options = logs;
                 }
                 logs = true;
@@ -36,6 +36,8 @@ class GBLAPI extends EventEmitter {
             if (options.webhookAuth) {
                 const GBLWebhook = require('./webhook');
                 this.webhook = new GBLWebhook(options.webhookPort, options.webhookPath, options.webhookAuth);
+            } else {
+                throw new TypeError("You must provide a authentication code!")
             }
         }
     }
