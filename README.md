@@ -1,4 +1,4 @@
-# GBLAPI.js - The official
+# GBLAPI.js - The official JS API Wrapper for the GBL API
 
 # About
 This is the **official** api wrapper for GlennBotList.xyz written in JS, and published to NPMjs
@@ -51,13 +51,22 @@ Glenn.hasVoted().then((d) => console.log(d));
 Glenn.getVotes().then((d) => console.log(d));
 ```
 
+# Webhook Information
+To enable webhook you have to add some information in to the Glenn api!
+```js
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae', {webhookPort: 3001, webhookPath: "/GBLWebhook", webhookAuth: "Really Secure Password"}); // Use our bot's user id and GBL Auth Token
+```
+
+```js
+Glenn.webhook.on("vote", vote => console.log(vote)) // Will send you the user that voted when the vote is recived.
+Glenn.webhook.on("ready", console.log) // Will console log when the webhook is online and ready to use!
+```
+
 # Author
-> Made by `DieselJS#1689` for [Glenn Bot List](https://glennbotlist.xyz)
-> 
-> Small edits by `ERIK#1001`
+> Made by `DieselJS#1689` and `ERIK#1001`
 
 # Documentation
-> We have a Wiki, it is pretty bad, figure it out yourself until a better one is made :)
+> Our wiki is maintained by `Codingpro#0001`.
 
 # Help
 > Join our [Discord Server](https://glennbotlist.xyz/discord) for help on this module.
