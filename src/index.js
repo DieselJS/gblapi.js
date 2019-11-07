@@ -18,7 +18,9 @@ class GBLAPI extends EventEmitter {
         if (!token) throw new TypeError("Missing Token");
         if (logs) {
             if (logs.webhookPort || !logs == false || !logs) {
-                options = logs;
+                if (!logs) {
+                    options = logs;
+                }
                 logs = true;
             }
         }
