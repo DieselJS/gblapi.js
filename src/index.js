@@ -16,19 +16,30 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (!options) options = {};
-        if (!logs) logs = true;
+        if (logs) {
+            if (logs.webhookAuth || !logs == false || !logs) {
+                if (logs.webhookAuth) {
+                    options = logs;
+                }
+                logs = true;
+            }
+        }
         super();
-
         this._id = id;
         this._token = token;
         this._logging = logs;
         this._options = options;
+        if (options) {
+            if (!options.webhookPort) options.webhookPort = 3001;
+            if (!options.webhookPath) options.webhookPath = "/GBLWebhook";
 
-        // if (this._options.webhookPort || this._options.webhookServer) {
-        //     const GBLWebhook = require('./webhook');
-        //     this.webhook = new GBLWebhook(this._options.webhookPort, this._options.webhookPath, this._options.webhookAuth, this._options.webhookServer);
-        // }
+            if (options.webhookAuth) {
+                const GBLWebhook = require('./webhook');
+                this.webhook = new GBLWebhook(options.webhookPort, options.webhookPath, options.webhookAuth);
+            } else {
+                throw new TypeError("You must provide a authentication code!")
+            }
+        }
     }
 
     get id() {
@@ -112,7 +123,7 @@ class GBLAPI extends EventEmitter {
         if (!id) {
             if (!this._id) throw new TypeError("Missing Bot ID");
         }
-        return hasVoted(uid, id, auth)
+        return hasVoted(uid, id)
     }
 }
 
