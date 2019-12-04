@@ -3,7 +3,7 @@ const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (id) {
     return axios({
-        url: `https://glennbotlist.xyz/api/bot/${id}`
+        url: `https://glennbotlist.xyz/api/get/bot/${id}`
     }).then(async p => {
         return await p.data;
     }).catch(err => {
