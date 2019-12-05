@@ -5,7 +5,7 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
 
     return axios({
         method: "post",
-        url: `https://glennbotlist.xyz/api/post/stats/${id}`,
+        url: `https://glennbotlist.xyz/api/post/stats/bot/${id}`,
         data: {
             serverCount,
             shardCount,
