@@ -6,10 +6,13 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
     return axios({
         method: "post",
         url: `https://glennbotlist.xyz/api/post/stats/bot/${id}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': authorization
+        },
         data: {
             serverCount,
-            shardCount,
-            authorization
+            shardCount
         }
     }).then(p => {
         return {
