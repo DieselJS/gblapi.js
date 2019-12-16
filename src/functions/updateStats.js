@@ -7,12 +7,12 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
         method: "post",
         url: `https://glennbotlist.xyz/api/post/stats/bot/${id}`,
         headers: {
-            'Content-Type': 'application/json',
-            'authorization': authorization
+            'Content-Type': 'application/json'
         },
         data: {
             serverCount,
-            shardCount
+            shardCount,
+            authorization
         }
     }).then(p => {
         return {
