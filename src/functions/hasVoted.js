@@ -1,9 +1,13 @@
 const axios = require('axios');
 const GBLAPIError = require('./GBLAPIError');
 
-module.exports = async function (uid, id) {
+module.exports = async function (uid, id, authorization) {
     return axios({
-        url: `https://glennbotlist.xyz/api/get/bot/${id}`
+        url: `https://glennbotlist.xyz/api/v2/bot/${id}/votes`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': authorization
+        },
     }).then(async p => {
         return await p.data.votes.map(i => i.id == uid).filter(i => i)[0] || false;
     }).catch(err => {
