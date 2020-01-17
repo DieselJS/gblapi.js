@@ -9,7 +9,7 @@ module.exports = async function (uid, id, authorization) {
             'authorization': authorization
         },
     }).then(async p => {
-        return await p.data.votes.map(i => i.id == uid).filter(i => i)[0] || false;
+        return await p.data.current_votes.current_users.map(u => u == uid).filter(i => i)[0] || false;
     }).catch(err => {
         if (err.response.status !== 200) switch (err.response.status) {
             case 400:
