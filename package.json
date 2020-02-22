@@ -6,6 +6,10 @@
   "scripts": {
     "test": "node test/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DieselGaming/gblapi.js.git"
+  },
   "keywords": [
     "glennbotlist",
     "gbl",
