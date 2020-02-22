@@ -5,7 +5,7 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
 
     return axios({
         method: "post",
-        url: `https://glennbotlist.xyz/api/post/stats/bot/${id}`,
+        url: `https://glennbotlist.xyz/api/v1/post/stats/bot/${id}`,
         headers: {
             'Content-Type': 'application/json'
         },

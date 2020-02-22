@@ -5,6 +5,7 @@ const updateStats = require('./functions/updateStats');
 const hasVoted = require('./functions/hasVoted');
 const getVotes = require('./functions/getVotes');
 const updateStatsOld = require('./functions/updateStatsOld');
+const Util = require('util');
 
 class GBLAPI extends EventEmitter {
     /**
@@ -17,14 +18,15 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError("Missing Client ID");
         if (!token) throw new TypeError("Missing Token");
-        if (logs) {
-            if (logs.webhookAuth || !logs == false || !logs) {
-                if (logs.webhookAuth) {
-                    options = logs;
-                }
-                logs = true;
-            }
-        }
+        if (!logs) throw new TypeError("Logs boolean is not set.");
+        // if (logs) {
+        //     if (logs.webhookAuth || !logs == false || !logs) {
+        //         if (logs.webhookAuth) {
+        //             options = logs;
+        //         }
+        //         logs = true;
+        //     }
+        // }
         super();
         this._id = id;
         this._token = token;
@@ -41,6 +43,10 @@ class GBLAPI extends EventEmitter {
                 throw new TypeError("You must provide a authentication code!")
             }
         }
+    }
+    
+    get version() {
+        return require('../package.json').version;
     }
 
     get id() {
@@ -114,6 +120,7 @@ class GBLAPI extends EventEmitter {
      * @param {string} [id] The ID to post the stats to, if changed
      * @param {token} [auth] The token used to post the stats, if needed
      * @returns {Promise<{ message: string, success: boolean }>}
+     * @deprecated
      */
     async updateStatsOld(serverCount = 0, shardCount = 0, id = this.id, auth = this.token) {
         if (this._logging === true) {
@@ -143,6 +150,8 @@ class GBLAPI extends EventEmitter {
         return hasVoted(uid, id, auth);
     }
 }
+
+GBLAPI.prototype.updateStatsOld = Util.deprecate(GBLAPI.prototype.updateStatsOld, '[GBLAPI] updateStatsOld() is deprecated. Use updateStats() instead.');
 
 module.exports = GBLAPI;
 
