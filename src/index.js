@@ -40,7 +40,7 @@ class GBLAPI extends EventEmitter {
                 const GBLWebhook = require('./webhook');
                 this.webhook = new GBLWebhook(options.webhookPort, options.webhookPath, options.webhookAuth);
             } else {
-                throw new TypeError("You must provide a authentication code!")
+                throw new TypeError("You must provide webhook auth in both the webhook constructor and website!");
             }
         }
     }
@@ -67,7 +67,7 @@ class GBLAPI extends EventEmitter {
 
     /**
      * Get bot stats
-     * @param {string} [id] The ID of the bot to gain stats from.
+     * @param {String} [id] The ID of the bot to gain stats from.
      * @returns {Promise<{}>}
      */
     async getBot(id = this.id) {
@@ -87,12 +87,13 @@ class GBLAPI extends EventEmitter {
 
     /**
      * Get votes of a bot
-     * @param {string} [id] The ID of the bot to gain votes from.
+     * @param {String} [id] The ID of the bot to gain votes from.
      * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
+     * @param {Boolean} logging Whether or not console.logs are used.
      * @returns {Promise<{}>}
      */
-    async getVotes(id = this.id, auth = this.token) {
-        console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
+    async getVotes(id = this.id, auth = this.token, logging = this.logging) {
+        if (logging) console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
         if (!id) throw new TypeError("Missing Bot ID");
         if (!auth) throw new TypeError("Missing Authentication Token");
         return getVotes(id, auth);
@@ -100,9 +101,9 @@ class GBLAPI extends EventEmitter {
 
     /**
      * Post server count
-     * @param {number} serverCount The number of servers your bot is in
-     * @param {number} shardCount The number of shards your bot has
-     * @param {string} [id] The ID to post the stats to, if changed
+     * @param {Number} serverCount The number of servers your bot is in
+     * @param {Number} shardCount The number of shards your bot has
+     * @param {String} [id] The ID to post the stats to, if changed
      * @param {token} [auth] The token used to post the stats, if needed
      * @returns {Promise<{ message: string, success: boolean }>}
      */
@@ -115,9 +116,9 @@ class GBLAPI extends EventEmitter {
 
     /**
      * Post server count
-     * @param {number} serverCount The number of servers your bot is in
-     * @param {number} shardCount The number of shards your bot has
-     * @param {string} [id] The ID to post the stats to, if changed
+     * @param {Number} serverCount The number of servers your bot is in
+     * @param {Number} shardCount The number of shards your bot has
+     * @param {String} [id] The ID to post the stats to, if changed
      * @param {token} [auth] The token used to post the stats, if needed
      * @returns {Promise<{ message: string, success: boolean }>}
      * @deprecated
@@ -131,8 +132,8 @@ class GBLAPI extends EventEmitter {
 
     /**
      * If user has voted
-     * @param {string} [uid] The ID of the user to see if they voted.
-     * @param {string} [id] The ID of the bot to gain stats from.
+     * @param {String} [uid] The ID of the user to see if they voted.
+     * @param {String} [id] The ID of the bot to gain stats from.
      * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
      * @returns {Boolean}
      * @example
@@ -156,6 +157,6 @@ GBLAPI.prototype.updateStatsOld = Util.deprecate(GBLAPI.prototype.updateStatsOld
 module.exports = GBLAPI;
 
 /**
- * @prop {string} token The current API token
- * @prop {object} options The options for the current instance
+ * @prop {String} token The current API token
+ * @prop {Object} options The options for the current instance
  */

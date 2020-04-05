@@ -19,9 +19,9 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const GBL = require('gblapi.js');
-const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use your bot's user id and GBL Auth Token
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae', false); // Use your bot's user id and GBL Auth Token
 
-bot.on('guildAdd', async (guild) => {
+bot.on('guildCreate', async (guild) => {
     console.log('New guild joined!');
     Glenn.updateStats(bot.guilds.size);
 });
@@ -35,7 +35,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const GBL = require('gblapi.js');
-const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use your bot's user id and GBL Auth Token
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae', false); // Use your bot's user id and GBL Auth Token
 
 setInterval(() => {
     Glenn.updateStats(bot.guilds.size);
@@ -54,7 +54,7 @@ Glenn.getVotes().then((d) => console.log(d));
 # Webhook Information
 To enable webhook you have to add some information in to the Glenn api!
 ```js
-const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae', {webhookPort: 3001, webhookPath: "/GBLWebhook", webhookAuth: "Really Secure Password"}); // Use our bot's user id and GBL Auth Token
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae', false, { webhookPort: 3001, webhookPath: "/GBLWebhook", webhookAuth: "Really Secure Password" }); // Use our bot's user id and GBL Auth Token
 ```
 
 ```js

@@ -19,9 +19,9 @@ class GBLWebhook extends EventEmitter {
         this.app = new express();
 
         this.app.use(express.json());
-        var port = normalizePort(webhookPort);
+        let port = normalizePort(webhookPort);
         this.app.set('port', port);
-        var server = http.createServer(this.app);
+        let server = http.createServer(this.app);
         this.router = express.Router()
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
@@ -50,7 +50,7 @@ class GBLWebhook extends EventEmitter {
             return res.json({ good: true })
         })
         function normalizePort(val) {
-            var port = parseInt(val, 10);
+            let port = parseInt(val, 10);
 
             if (isNaN(port)) {
                 // named pipe
