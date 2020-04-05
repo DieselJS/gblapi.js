@@ -19,7 +19,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const GBL = require('gblapi.js');
-const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use our bot's user id and GBL Auth Token
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use your bot's user id and GBL Auth Token
 
 bot.on('guildAdd', async (guild) => {
     console.log('New guild joined!');
@@ -35,7 +35,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const GBL = require('gblapi.js');
-const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use our bot's user id and GBL Auth Token
+const Glenn = new GBL(bot.user.id, 'XA-a2ee0f0215204efaaa987bda2c16e4ae'); // Use your bot's user id and GBL Auth Token
 
 setInterval(() => {
     Glenn.updateStats(bot.guilds.size);

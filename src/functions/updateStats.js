@@ -5,11 +5,14 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
 
     return axios({
         method: "post",
-        url: `https://glennbotlist.xyz/api/stats/bot/${id}`,
+        url: `https://glennbotlist.xyz/api/v2/bot/${id}/stats`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': authorization
+        },
         data: {
-            serverCount,
-            shardCount,
-            authorization
+            'serverCount': serverCount,
+            'shardCount': shardCount,
         }
     }).then(p => {
         return {
@@ -17,6 +20,9 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
             success: p.status === 200
         };
     }).catch(err => {
+        console.log(err.response);
+        console.log("=============");
+        console.log(err.response.data);
         if (err.response.status !== 200) switch (err.response.status) {
             case 400:
                 throw new GBLAPIError({
@@ -58,7 +64,7 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
                 throw new GBLAPIError({
                     statusCode: err.response.status,
                     body: err.body,
-                    type: "Unkown"
+                    type: "Unknown"
                 });
         }
     });
