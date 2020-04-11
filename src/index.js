@@ -1,50 +1,43 @@
 const EventEmitter = require('eventemitter3');
-const getBot = require('./functions/getBot');
-const getUser = require('./functions/getUser');
-const updateStats = require('./functions/updateStats');
-const hasVoted = require('./functions/hasVoted');
-const getVotes = require('./functions/getVotes');
-const updateStatsOld = require('./functions/updateStatsOld');
-const Util = require('util');
+const { getBot, getUser, getVotes, updateStats, hasVoted } = require('./functions');
 
 class GBLAPI extends EventEmitter {
     /**
      * Main Class
-     * @param {string} id Client ID
-     * @param {string} token GlennBotList Client Token
-     * @param {boolean} logs Automatic logs?
-     * @param {object} options Client Options
+     * @param {String} id Client ID
+     * @param {String} token GlennBotList Client Token
+     * @param {Boolean} logs Automatic Logging
+     * @param {Object} options Client Options
      */
     constructor(id, token, logs, options) {
-        if (!id) throw new TypeError("Missing Client ID");
-        if (!token) throw new TypeError("Missing Token");
-        if (!logs) throw new TypeError("Logs boolean is not set.");
-        // if (logs) {
-        //     if (logs.webhookAuth || !logs == false || !logs) {
-        //         if (logs.webhookAuth) {
-        //             options = logs;
-        //         }
-        //         logs = true;
-        //     }
-        // }
+        if (!id) throw new TypeError('Missing Client ID');
+        if (!token) throw new TypeError('Missing GBL Token');
+        if (!logs) throw new TypeError('Logs boolean is not set');
+        if (options) {
+            if (options.webhookAuth || !options == false || !options) {
+                if (options.webhookAuth) {
+                    options = options;
+                }
+                logs = true;
+            }
+        }
         super();
         this._id = id;
         this._token = token;
-        this._logging = logs;
+        this._logs = logs;
         this._options = options;
         if (options) {
             if (!options.webhookPort) options.webhookPort = 3001;
-            if (!options.webhookPath) options.webhookPath = "/GBLWebhook";
-
+            if (!options.webhookPath) options.webhookPath = '/GBLWebhook';
             if (options.webhookAuth) {
                 const GBLWebhook = require('./webhook');
                 this.webhook = new GBLWebhook(options.webhookPort, options.webhookPath, options.webhookAuth);
             } else {
-                throw new TypeError("You must provide a authentication code!")
+                throw new TypeError('You must provide GBL Authentication.');
             }
         }
     }
-    
+
     get version() {
         return require('../package.json').version;
     }
@@ -57,105 +50,18 @@ class GBLAPI extends EventEmitter {
         return this._token;
     }
 
-    get logging() {
-        return !!this._logging;
+    get logs() {
+        return !!this._logs;
     }
 
     get options() {
         return this._options;
     }
-
-    /**
-     * Get bot stats
-     * @param {string} [id] The ID of the bot to gain stats from.
-     * @returns {Promise<{}>}
-     */
-    async getBot(id = this.id) {
-        if (!id) throw new TypeError("Missing Bot ID");
-        return getBot(id);
-    }
-
-    /**
-     * Get user stats
-     * @param {string} [id] The ID of the user to gain stats from.
-     * @returns {Promise<{}>}
-     */
-    async getUser(id = this.id) {
-        if (!id) throw new TypeError("Missing User ID");
-        return getUser(id);
-    }
-
-    /**
-     * Get votes of a bot
-     * @param {string} [id] The ID of the bot to gain votes from.
-     * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
-     * @returns {Promise<{}>}
-     */
-    async getVotes(id = this.id, auth = this.token) {
-        console.log("[GlennBotList](Client#getVotes) This function has not been completed and maybe buggy.")
-        if (!id) throw new TypeError("Missing Bot ID");
-        if (!auth) throw new TypeError("Missing Authentication Token");
-        return getVotes(id, auth);
-    }
-
-    /**
-     * Post server count
-     * @param {number} serverCount The number of servers your bot is in
-     * @param {number} shardCount The number of shards your bot has
-     * @param {string} [id] The ID to post the stats to, if changed
-     * @param {token} [auth] The token used to post the stats, if needed
-     * @returns {Promise<{ message: string, success: boolean }>}
-     */
-    async updateStats(serverCount = 0, shardCount = 0, id = this.id, auth = this.token) {
-        if (this._logging === true) {
-            console.log(`[GlennBotList] Posting Stats...`);
-        }
-        return updateStats(serverCount, shardCount, id, auth);
-    }
-
-    /**
-     * Post server count
-     * @param {number} serverCount The number of servers your bot is in
-     * @param {number} shardCount The number of shards your bot has
-     * @param {string} [id] The ID to post the stats to, if changed
-     * @param {token} [auth] The token used to post the stats, if needed
-     * @returns {Promise<{ message: string, success: boolean }>}
-     * @deprecated
-     */
-    async updateStatsOld(serverCount = 0, shardCount = 0, id = this.id, auth = this.token) {
-        if (this._logging === true) {
-            console.log(`[GlennBotListOld] Posting Stats...`);
-        }
-        return updateStatsOld(serverCount, shardCount, id, auth);
-    }
-
-    /**
-     * If user has voted
-     * @param {string} [uid] The ID of the user to see if they voted.
-     * @param {string} [id] The ID of the bot to gain stats from.
-     * @param {token} [auth] The token used to gain the votes, if needed. The token used in the constructor will most likely work.
-     * @returns {Boolean}
-     * @example
-     * Glenn.hasVoted('414713250832449536')
-     *   .then(d => {
-     *     if (d) console.log("User has voted!")
-     *     else console.log("User has not voted.")
-     *   }).catch(console.error);
-     */
-    async hasVoted(uid, id = this.id, auth = this.token) {
-        if (!uid) throw new TypeError("Missing User ID");
-        if (!id) {
-            if (!this._id) throw new TypeError("Missing Bot ID");
-        }
-        return hasVoted(uid, id, auth);
-    }
 }
-
-GBLAPI.prototype.updateStatsOld = Util.deprecate(GBLAPI.prototype.updateStatsOld, '[GBLAPI] updateStatsOld() is deprecated. Use updateStats() instead.');
 
 module.exports = GBLAPI;
 
 /**
- * @prop {string} token The current API token
- * @prop {object} options The options for the current instance
+ * @property {String} token GBL API Token
+ * @property {Object} options Current options
  */

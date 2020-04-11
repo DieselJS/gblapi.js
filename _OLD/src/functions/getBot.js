@@ -1,20 +1,20 @@
 const axios = require('axios');
-const config = require('../config');
-const GBLError = require('../error');
+const GBLAPIError = require('./GBLAPIError');
 
 module.exports = async function (id) {
     return axios({
-        url: `https://${config.domain}${config.endpoints.get_bot.replace(':id', `${id}`)}`
+        url: `https://glennbotlist.xyz/api/v2/bot/${id}`
     }).then(async p => {
         return await p.data;
     }).catch(err => {
         if (err.response.status !== 200) switch (err.response.status) {
             case 400:
-                throw new GBLError({
+                throw new GBLAPIError({
                     statusCode: err.response.status,
                     body: err.body,
-                    type: 'Bad Request'
+                    type: "Bad Request"
                 });
+
             case 401:
                 throw new GBLAPIError({
                     statusCode: err.response.status,
@@ -48,8 +48,9 @@ module.exports = async function (id) {
                 throw new GBLAPIError({
                     statusCode: err.response.status,
                     body: err.body,
-                    type: "Unknown"
+                    type: "Unkown"
                 });
         }
     })
-};
+
+}
