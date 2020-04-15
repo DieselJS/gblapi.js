@@ -7,4 +7,4 @@ module.exports = {
         has_voted: '/bot/:id/votes',
         update_stats: '/bot/:id/stats'
     }   
-}
+};

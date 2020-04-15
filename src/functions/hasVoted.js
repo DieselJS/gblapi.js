@@ -2,9 +2,9 @@ const axios = require('axios');
 const config = require('../config');
 const GBLError = require('../error');
 
-module.exports = async function (id) {
+module.exports = async function (uid, id, authorization) {
     return axios({
-        url: `https://${config.domain}${config.endpoints.get_bot.replace(':id', `${id}`)}`
+        url: `https://${config.domain}${config.endpoints.has_voted.replace(':id', `${id}`)}`
     }).then(async p => {
         return await p.data;
     }).catch(err => {

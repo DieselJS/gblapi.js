@@ -4,7 +4,7 @@ const GBLError = require('../error');
 
 module.exports = async function (id) {
     return axios({
-        url: `https://${config.domain}${config.endpoints.get_bot.replace(':id', `${id}`)}`
+        url: `https://${config.domain}${config.endpoints.get_user.replace(':id', `${id}`)}`
     }).then(async p => {
         return await p.data;
     }).catch(err => {

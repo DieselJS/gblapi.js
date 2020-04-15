@@ -20,9 +20,6 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
             success: p.status === 200
         };
     }).catch(err => {
-        console.log(err.response);
-        console.log("=============");
-        console.log(err.response.data);
         if (err.response.status !== 200) switch (err.response.status) {
             case 400:
                 throw new GBLAPIError({
@@ -37,7 +34,6 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
                     body: err.body,
                     type: "Unauthorized"
                 });
-
             case 403:
                 throw new GBLAPIError({
                     statusCode: err.response.status,
@@ -54,12 +50,67 @@ module.exports = async function (serverCount, shardCount, id, authorization) {
 
             case 500:
             case 502:
-                throw new GBLAPIError({
-                    statusCode: err.response.status,
-                    body: err.body,
-                    type: "Server Error"
+                return axios({
+                    method: "post",
+                    url: `https://api.glennbotlist.xyz/bot/${id}/stats`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': authorization
+                    },
+                    data: {
+                        'serverCount': serverCount,
+                        'shardCount': shardCount,
+                    }
+                }).then(p => {
+                    return {
+                        message: p.data.message || "Successful request.",
+                        success: p.status === 200
+                    };
+                }).catch(err => {
+                    if (err.response.status !== 200) switch (err.response.status) {
+                        case 400:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Bad Request"
+                            });
+            
+                        case 401:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Unauthorized"
+                            });
+            
+                        case 403:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Bad Request"
+                            });
+            
+                        case 404:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Not Found"
+                            });
+            
+                        case 500:
+                        case 502:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Server Error"
+                            });
+                        default:
+                            throw new GBLAPIError({
+                                statusCode: err.response.status,
+                                body: err.body,
+                                type: "Unknown"
+                            });
+                    }
                 });
-
             default:
                 throw new GBLAPIError({
                     statusCode: err.response.status,

@@ -35,6 +35,7 @@ class GBLWebhook extends EventEmitter {
             if (req.body.auth !== webhookAuth) {
                 res.status(401);
                 delete req.body.auth;
+                this.emit('error', `Unauthorized. You did not specify a correct token.`);
                 return res.json({ invalidauth: true });
             }
             delete req.body.auth;

@@ -2,9 +2,18 @@ const axios = require('axios');
 const config = require('../config');
 const GBLError = require('../error');
 
-module.exports = async function (id) {
+module.exports = async function (serverCount, shardCount, logs, id, authorization) {
     return axios({
-        url: `https://${config.domain}${config.endpoints.get_bot.replace(':id', `${id}`)}`
+        method: 'post',
+        url: `https://${config.domain}${config.endpoints.update_stats.replace(':id', `${id}`)}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': authorization
+        },
+        data: {
+            'serverCount': serverCount,
+            'shardCount': shardCount,
+        }
     }).then(async p => {
         return await p.data;
     }).catch(err => {
