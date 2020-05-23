@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const config = require('../config');
-const GBLError = require('../error');
 
 module.exports = async function (serverCount, shardCount, id, authorization, logs) {
     const data = {
