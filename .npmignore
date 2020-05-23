@@ -1,4 +1,7 @@
 node_modules/
 package-lock.json
-test/index.js
-_OLD/
+
+test/index.json
+
+_BETA
+_OLD

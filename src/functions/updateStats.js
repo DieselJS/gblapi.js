@@ -7,7 +7,7 @@ module.exports = async function (serverCount, shardCount, id, authorization, log
         "serverCount": serverCount,
         "shardCount": shardCount
     };
-    return fetch(`https://glennbotlist.xyz/api/v2/bot/${id}/stats`, {
+    return fetch(`${config.domain}${config.endpoints.update_stats.replace(':id', `${id}`)}/stats`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
