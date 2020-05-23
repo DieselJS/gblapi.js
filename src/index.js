@@ -16,7 +16,7 @@ class GBLAPI extends EventEmitter {
     constructor(id, token, logs, options) {
         if (!id) throw new TypeError('Missing Client ID');
         if (!token) throw new TypeError('Missing GBL Token');
-        if (!logs) throw new TypeError('Logs boolean is not set');
+        if (!logs && logs !== false && logs !== true) throw new TypeError('Logs boolean is not set');
         if (options) {
             if (options.webhookAuth || !options == false || !options) {
                 if (options.webhookAuth) {
@@ -100,9 +100,9 @@ class GBLAPI extends EventEmitter {
      * @param {String} id The Client ID of what is posting stats, if needed
      * @param {token} auth The token useed to post stats, if needed
      */
-    async updateStats(serverCount = 0, shardCount = 0, logs = this.logs, id = this.id, auth = this.token) {
-        if (this.logs) console.log(`[GlennBotList] Posting Stats...`);
-        return updateStats(serverCount, shardCount, logs, id, auth);
+    async updateStats(serverCount = 0, shardCount = 0, id = this.id, auth = this.token, logs = this.logs) {
+        if (this.logs) console.log(`[GlennBotList] Posting ${serverCount} servers and ${shardCount} shards to GlennBotList...`);
+        return updateStats(serverCount, shardCount, id, auth, logs);
     }
 
     /**

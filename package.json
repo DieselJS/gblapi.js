@@ -18,9 +18,9 @@
   "author": "DieselJS",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
     "eventemitter3": "^4.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
   },
   "typings": "./typings/index.d.ts"
 }

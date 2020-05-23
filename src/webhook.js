@@ -67,11 +67,11 @@ class GBLWebhook extends EventEmitter {
             
             switch (error.code) {
                 case 'EACCES':
-                    console.error(bind + ' requires elevated privileges');
+                    this.emit('error', `${bind} requires elevated privileges and cannot be used by GBLAPI.JS webhook.`);
                     process.exit(1);
                     break;
                 case 'EADDRINUSE':
-                    console.error(bind + ' is already in use');
+                    this.emit('error', `${bind} is already in use and cannot be used by GBLAPI.JS webhook.`);
                     process.exit(1);
                     break;
                 default:
