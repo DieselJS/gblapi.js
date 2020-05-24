@@ -6,17 +6,17 @@ module.exports = async function (serverCount, shardCount, id, authorization, log
         "serverCount": serverCount,
         "shardCount": shardCount
     };
-    return fetch(`${config.domain}${config.endpoints.update_stats.replace(':id', `${id}`)}/stats`, {
+    return fetch(`https://${config.domain}${config.endpoints.update_stats.replace(':id', `${id}`)}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': authorization
+            'authorization': authorization
         },
         body: JSON.stringify(data)
     }).then(res => res.json())
     .then(async json => {
-        if (json['code'] == 200 && logs) console.log(`[GlennBotList] Sucessfully posted ${serverCount} servers and ${shardCount} shards to GlennBotList`);
-        else console.log(`[GlennBotList] There was an error while trying to post: ${json}`);
+        if (json['code'] == 200 && logs) console.log(`[GlennBotList] Sucessfully posted ${serverCount} servers and ${shardCount} shards to GlennBotList!`);
+        else if (json['code'] !== 200 && logs) console.log(`[GlennBotList] There was an error while trying to post: ${json}`);
         return await json;
     }).catch(async error => {
         console.log(error);

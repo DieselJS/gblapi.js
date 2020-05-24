@@ -1,11 +1,10 @@
-const EventEmitter = require('eventemitter3');
 const { getBot, getUser, getVotes, updateStats, hasVoted } = require('./functions');
 
 /**
  * @property {String} token GBL API Token
  * @property {Object} options Current options
  */
-class GBLAPI extends EventEmitter {
+class GBLAPI {
     /**
      * Main Class
      * @param {String} id Client ID
@@ -25,7 +24,6 @@ class GBLAPI extends EventEmitter {
                 logs = true;
             }
         }
-        super();
         this._id = id;
         this._token = token;
         this._logs = logs;

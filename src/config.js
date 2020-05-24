@@ -1,5 +1,5 @@
 module.exports = {
-    domain: 'glennbotlist.xyz',
+    domain: 'glennbotlist.xyz/api',
     endpoints: {
         get_bot: '/bot/:id',
         get_user: '/user/:id',

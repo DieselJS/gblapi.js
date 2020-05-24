@@ -1,7 +1,7 @@
-node_modules/
-package-lock.json
+#node_modules/
+#package-lock.json
 
-test/index.json
+test/index.js
 
 _BETA
 _OLD
