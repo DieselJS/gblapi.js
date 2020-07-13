@@ -96,7 +96,7 @@ class GBLAPI {
      * @param {Number} shardCount The number of shards your bot has
      * @param {Boolean} logs Logs boolean
      * @param {String} id The Client ID of what is posting stats, if needed
-     * @param {token} auth The token useed to post stats, if needed
+     * @param {token} auth The token used to post stats, if needed
      */
     async updateStats(serverCount = 0, shardCount = 0, id = this.id, auth = this.token, logs = this.logs) {
         if (this.logs) console.log(`[GlennBotList] Posting ${serverCount} servers and ${shardCount} shards to GlennBotList...`);
