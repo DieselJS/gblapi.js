@@ -2,6 +2,7 @@
 ## - The official JS API Wrapper for the GBL API
 
 # About
+**GBL IS NO LONGER ONLINE, SO API MIGHT NOT WORK**
 This is the **official** api wrapper for GlennBotList.xyz written in JS, and published to NPMjs.
 It uses EventEmitter3, Express and node-fetch to interact with our api.
 
